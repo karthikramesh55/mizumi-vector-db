@@ -7,8 +7,8 @@ Learning the Rust syntax, ownership, and building the project structure.
 
     [Done] Project Setup: cargo init, Cargo.toml.
     [Done] Command Line Arguments: Parsing user input (std::env).
-    [] Basic Modules: Creating src/ingest.rs to separate logic from main.rs.
-    [] Error Handling: Replace println! with Result<T, E> and ? operator.
+    [Done] Basic Modules: Creating src/ingest.rs to separate logic from main.rs.
+    [Done] Error Handling: Usage of Result<T, E>, Box<dyn std::error::Error>, eprintln!(), and ? operator (syntactic sugar).
     [] Structs & Enums: Define a Bookmark struct (URL, title, content) and an Action enum (Add, Search, List).
 
 Phase 2: Ingestion & Data Processing (The "Rivers")
