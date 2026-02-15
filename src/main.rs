@@ -77,5 +77,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
         }
     }
 
-    Ok(()) // Note: The Ok() describes the successful completion of the matching aspect, and when () is passed as an argument onto (), that signals the unit type for returning of nullity
+    Ok(()) // Note: The Ok() describes the successful completion of the main flow, and when () is passed as an argument onto (), that describes the unit type for returning of nullity
 }
