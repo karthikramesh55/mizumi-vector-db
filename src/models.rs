@@ -28,6 +28,12 @@ impl Bookmark
     }
 }
 
+pub struct HtmlContent
+{
+    pub url: String,
+    pub raw_text: String,
+} // Note: Defining the HtmlContent structure for wrapping the raw HTML content that will have to be cleaned.
+
 #[derive(Debug)]
 pub struct CleanedData
 {
@@ -40,18 +46,12 @@ pub trait Cleanable
     fn clean(&self) -> Result<CleanedData, Box<dyn std::error::Error>>;
 } // Note: Defining the Cleanable trait (i.e. an interface for shared behavior) that establishes a contract where the raw (HTML, PDF, Text file, Markdown snippet) agrees to be transformed into CleanedData.
 
-pub struct HtmlContent
-{
-    pub url: String,
-    pub raw_text: String,
-} // Note: Defining the HtmlContent structure for wrapping the raw HTML content that will have to be cleaned.
-
 impl Cleanable for HtmlContent
 {
     fn clean(&self) -> Result<CleanedData, Box<dyn std::error::Error>>
     {
         /*
-        Note: We are parsing the raw HTML using the readability::extractor crate utility to extract the sensible text content
+        Note: We are parsing the raw HTML using the readability::extractor crate utility to extract the title and the text content
                 In this regard, the extractor requires a stream wrapper (i.e. cursor objectual body) + URL objectual body to resolve relative links
               The cursor that is wrapping the response buffer implements Read + Seek trait, that is used to read + navigate the in-memory data.
                 We make the cursor objectual body mutable so that its internal position can be updated during the read + seek operation.
@@ -59,7 +59,7 @@ impl Cleanable for HtmlContent
         let mut cursor = Cursor::new(&self.raw_text);
         let url_objectual_body = Url::parse(&self.url)?;
 
-        let resultant_product = extractor::extract(&mut cursor, &url_objectual_body)?;
+        let resultant_product = extractor::extract(&mut cursor, &url_objectual_body)?; // Note: The extractor gives us the title and the text content
 
         Ok(CleanedData
             {

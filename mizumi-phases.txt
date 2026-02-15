@@ -17,7 +17,7 @@ Learning the aspect of HTTP + HTML parsing + asynchronous Rust.
     [Done] Dependencies: Add reqwest (HTTP) and readability scraper (HTML parsing) to Cargo.toml.
     [Done] Async/Await: Convert main to #[tokio::main] and write an async fetcher string.
     [Done] HTML Parsing: Extract readable text from raw HTML (handling messy tags).
-    [] Traits: Implement a Cleanable trait to standardize how we clean text from different sources (PDF vs HTML).
+    [Done] Traits: Implement a Cleanable trait to standardize how we clean text from different sources (PDF vs HTML).
 
 Phase 3: The HNSW Index (The "Lake")
 Exploring the HNSW algorithmic indexing + memory layout + the aspect of distance
