@@ -1,6 +1,6 @@
 # Mizumi: A vector database in Rust
 
-**Mizumi** (Japanese: 湖) means "Lake".
+**Mizumi** (湖) means "Lake" in Japanese.
 
 A lake is a body of water where water streams flow in and settle.
 
