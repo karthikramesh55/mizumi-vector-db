@@ -10,7 +10,7 @@ use actions::Action;
 /*
 Note: Result<T, E> facilitates scenario handling (success, failure), where:
 - T describes any successful handling
-  For example: () is a unit type for describing an "okay" signaling while returning nullity
+  For example: () is a unit type for describing the signaling of "the flow has ended okay" while returning nullity
 - E describes any error handling
   For example: Box<dyn std::error::Error> describes the accommodation of any encountered error
 */
@@ -25,7 +25,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
     }
 
     let action_string = &args[1];
-    let received_action = match actions::Action::from_action_string_to_action_enum(action_string)
+    let received_action = match Action::from_action_string_to_action_enum(action_string)
     {
         Some(successfully_validated_action) => successfully_validated_action,
         None => {
