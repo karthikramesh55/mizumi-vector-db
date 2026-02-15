@@ -1,4 +1,4 @@
-pub fn ingest_url(url: &str) -> Result<(), Box<dync std::error::Error>>
+pub fn ingest_url(url: &str) -> Result<(), Box<dyn std::error::Error>>
 {
     if !url.starts_with("http")
     {
@@ -6,6 +6,6 @@ pub fn ingest_url(url: &str) -> Result<(), Box<dync std::error::Error>>
     }
 
     println!("Ingesting the target URL: {}", url);
-    Ok(());
+    Ok(())
 
 }

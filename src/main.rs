@@ -10,7 +10,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
     if args.len() < 3
     {
         eprintln!("Follow the usage format: cargo run <action> <target>");
-        process.exit(1);
+        process::exit(1);
     }
 
     let action = &args[1];
