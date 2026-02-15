@@ -20,7 +20,7 @@ Goal: Learn about HTTP, HTML parsing, and asynchronous Rust.
     [] Traits: Implement a Cleanable trait to standardize how we clean text from different sources (PDF vs HTML).
 
 Phase 3: The HNSW Index (The "Lake" - Core Challenge)
-Goal: Deep dive into algorithms, memory layout, and distance math. This is the hardest but most rewarding part.
+Goal: Exploring the HNSW algorithmic indexing + memory layout + the aspect of distance
 
     [] Vector Math: Create a Vector type (wrapper around Vec<f32>). Implement cosine_similarity and euclidean_distance.
     [] The Node Struct: Create a Node struct for the graph (holds vector + links to neighbors).
