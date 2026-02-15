@@ -1,4 +1,4 @@
-# Mizumi: A vector database in Rust
+# Mizumi (湖): A vector database in Rust
 
 **Mizumi** (湖) means "lake" in Japanese.
 
@@ -23,7 +23,5 @@ The core database aspect of Mizumi requires searching for the nearest neighbors 
 
 In this regard:
 - HNSW: Hierarchically navigable small world is an algorithmic indexing approach that is explored in order to achieve the mission.
-
----
 
 
