@@ -30,10 +30,10 @@ Exploring the HNSW algorithmic indexing + memory layout + the aspect of distance
     [] Concurrency (Bonus): Use RwLock or Mutex to make the index thread-safe for simultaneous reads/writes.
 
 Phase 4: Embeddings (The "Transformation")
-Generating the embeddings for the captured text data
+Generating the vector embeddings for the captured text data
 
     [] Model Integration: Use candle-core (Hugging Face Rust port) to load a small model like all-MiniLM-L6-v2.
-    [] Tokenization: Turn text into tokens, then into embeddings.
+    [] Tokenization: Turn text into tokens, then into vector embeddings.
     [] Batching: Process multiple bookmarks at once to speed up ingestion.
 
 Phase 5: Storage & Persistence (The "Bedrock")
