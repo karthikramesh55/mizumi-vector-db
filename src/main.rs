@@ -1,17 +1,34 @@
 use std::env;
+use std::process;
 
-fn main()
+mod ingest;
+
+fn main() -> Result<(), Box<dyn std::error::Error>>
 {
     let args: Vec<String> = env::args().collect();
-    let action: String;
 
-    if args.len() < 2
+    if args.len() < 3
     {
-        println!("Usage: cargo run <action>");
-        return;
+        eprintln!("Follow the usage format: cargo run <action> <target>");
+        process.exit(1);
     }
 
-    action = args[1].clone();
+    let action = &args[1];
+    let target = &args[2];
 
-    println!("The action you had requested is: {}", action);
+    println!("The action and target URL that you had requested is: cargo run {} {}", action, target);
+
+    match action.as_str()
+    {
+        "add" | "ingest" => {
+            ingest::ingest_url(target)?;
+            println!("Successfully processed the target URL: {}", target);
+        }
+        _ => {
+            eprintln!("Unknown action: {}", action);
+            process::exit(1);
+        }
+    }
+
+    Ok(())
 }
