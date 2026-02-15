@@ -1,3 +1,7 @@
+use readability::extractor;
+use std::io::Cursor;
+use reqwest::Url;
+
 #[derive(Debug, Clone)]
 /*
 Note: Debug allows us to display the Bookmark structure using {:?}
@@ -23,3 +27,44 @@ impl Bookmark
         }
     }
 }
+
+#[derive(Debug)]
+pub struct CleanedData
+{
+    pub title: String,
+    pub content: String,
+} // Note: Defining the CleanedData structure in order to describe as to how the cleaned data should be characterized.
+
+pub trait Cleanable
+{
+    fn clean(&self) -> Result<CleanedData, Box<dyn std::error::Error>>;
+} // Note: Defining the Cleanable trait (i.e. an interface for shared behavior) that establishes a contract where the raw (HTML, PDF, Text file, Markdown snippet) agrees to be transformed into CleanedData.
+
+pub struct HtmlContent
+{
+    pub url: String,
+    pub raw_text: String,
+} // Note: Defining the HtmlContent structure for wrapping the raw HTML content that will have to be cleaned.
+
+impl Cleanable for HtmlContent
+{
+    fn clean(&self) -> Result<CleanedData, Box<dyn std::error::Error>>
+    {
+        /*
+        Note: We are parsing the raw HTML using the readability::extractor crate utility to extract the sensible text content
+                In this regard, the extractor requires a stream wrapper (i.e. cursor objectual body) + URL objectual body to resolve relative links
+              The cursor that is wrapping the response buffer implements Read + Seek trait, that is used to read + navigate the in-memory data.
+                We make the cursor objectual body mutable so that its internal position can be updated during the read + seek operation.
+        */
+        let mut cursor = Cursor::new(&self.raw_text);
+        let url_objectual_body = Url::parse(&self.url)?;
+
+        let resultant_product = extractor::extract(&mut cursor, &url_objectual_body)?;
+
+        Ok(CleanedData
+            {
+                title: resultant_product.title,
+                content: resultant_product.text
+            })
+    }
+} // Note: Implementing the trait (i.e. behavior) for the HtmlContent structure for cleaning the raw HTML data fetched from the target URL.

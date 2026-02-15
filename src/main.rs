@@ -75,11 +75,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>>
 
             */
             let target = &args[2];
-            let bookmark = models::Bookmark::new(target);
 
-            // Note: Since ingest_url has been transformed in to an asynchronous function, .await is used during the call
-            ingest::ingest_url(&bookmark.url).await?;
-            println!("A bookmark has been built: {:?}", bookmark); // Note: {:?} facilitates the displaying of any structure
+            // Note: Since ingest_url has been transformed in to an asynchronous function, .await is used during the call.
+            let bookmark = ingest::ingest_url(target).await?;        // Note: Through passing the target URL as an argument, we will get a cleaned Bookmark objectual body.
+            println!("The bookmark has been built: {:?}", bookmark); // Note: {:?} facilitates the displaying of any structure.
         }
 
         Action::Search => {
@@ -91,5 +90,5 @@ async fn main() -> Result<(), Box<dyn std::error::Error>>
         }
     }
 
-    Ok(()) // Note: The Ok() describes the successful completion of the main flow, and when () is passed as an argument onto Ok(), that describes the unit type for returning of nullity
+    Ok(()) // Note: The Ok() describes the successful completion of the main flow, and when () is passed as an argument onto Ok(), that describes the unit type for returning of nullity.
 }

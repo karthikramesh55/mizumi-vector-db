@@ -1,7 +1,7 @@
-use reqwest::Url;
-use readability::extractor;
+use reqwest;
+use crate::models::{HtmlContent, Cleanable, Bookmark};
 
-pub async fn ingest_url(url: &str) -> Result<(), Box<dyn std::error::Error>>
+pub async fn ingest_url(url: &str) -> Result<Bookmark, Box<dyn std::error::Error>>
 {
     if !url.starts_with("http") || !url.starts_with("https")
     {
@@ -20,25 +20,23 @@ pub async fn ingest_url(url: &str) -> Result<(), Box<dyn std::error::Error>>
           Meanwhile, the control moves to another task and comes back to this task after completion of the network transaction
     */
     let response_text = reqwest::get(url).await?.text().await?;
-
     println!("Fetched {} bytes from the URL. Extracting the text content...", response_text.len());
 
-    /*
-    Note: We are parsing the raw HTML using the readability::extractor crate utility to extract the sensible text content
-             In this regard, the extractor requires a stream wrapper (i.e. cursor objectual body) + URL objectual body to resolve relative links
-          The cursor that is wrapping the response buffer implements Read + Seek trait, that is used to read + navigate the in-memory data.
-             We make the cursor objectual body mutable so that its internal position can be updated during the read + seek operation.
-    */
-    let mut cursor = std::io::Cursor::new(response_text);
-    let url_objectual_body = Url::parse(url)?;
+    let raw_html = HtmlContent{ url: url.to_string(), raw_text: response_text};
+    println!("Cleaning the text content...");
 
-    let resultant_product = extractor::extract(&mut cursor, &url_objectual_body)?;
+    let cleaned_content = raw_html.clean()?;
 
     println!("----------------------------------------------------------");
-    println!("Title:       {}", resultant_product.title);
-    println!("Content:     {} bytes", resultant_product.text.len());
-    println!("Snippet:     {:.300}...", resultant_product.text);
+    println!("Title:       {}", cleaned_content.title);
+    println!("Content:     {} bytes", cleaned_content.content.len());
+    println!("Snippet:     {:.160}...", cleaned_content.content);
     println!("----------------------------------------------------------");
 
-    Ok(())  // Note: The Ok() describes the successful completion of this flow, and when () is passed as an argument onto Ok(), that describes the unit type for returning of nullity
+    Ok(Bookmark
+        {
+            url: url.to_string(),
+            title: cleaned_content.title,
+            bookmark_content: cleaned_content.content
+        })  // Note: The Ok() describes the successful completion of this flow, and when () is passed as an argument onto Ok(), that describes the unit type for the returning of nullity onto the calling point.
 }
