@@ -13,7 +13,7 @@ It turns your hoarded dormant data into a searchable resource that you can activ
 Mizumi consists of five key components:
 
 1.  **Ingestion Engine ("The River Streams")**: Scrapes URLs and cleans HTML content from bookmarks.
-2.  **Embedding Layer ("The Transformation")**: Converts raw text into numerical vectors using machine learning models.
+2.  **Embedding Layer ("The Transformation")**: Transforms the raw text into numerical vectors using a suitable embedding generation model.
 3.  **Indexing ("The Depth of the Lake")**: An indexing approach to organize vectors for fast nearest-neighbor search.
 4.  **Storage Engine ("The Bedrock")**: Persists the data to disk so that it survives a restart.
 5.  **API ("The Shore")**: A command-line interface to query the database.
