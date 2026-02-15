@@ -25,7 +25,7 @@ Exploring the HNSW algorithmic indexing + memory layout + the aspect of distance
     [] Vector Math: Create a Vector type (wrapper around Vec<f32>). Implement cosine_similarity and euclidean_distance.
     [] The Node Struct: Create a Node struct for the graph (holds vector + links to neighbors).
     [] Layered Graph: Implement the "Hierarchical" structure (layers of linked lists).
-    [] Greedy Search: implement search_layer (finding the closest node in a single graph layer).
+    [] Greedy Search: Implement search_layer (finding the closest node in a single graph layer).
     [] Insertion Logic: The complex part—finding the right spot for a new node and updating neighbor links across layers.
     [] Concurrency (Bonus): Use RwLock or Mutex to make the index thread-safe for simultaneous reads/writes.
 
