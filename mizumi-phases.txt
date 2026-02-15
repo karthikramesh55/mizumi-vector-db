@@ -14,7 +14,7 @@ Learning the Rust syntax, ownership, and building the project structure.
 Phase 2: Ingestion & Data Processing (The "Rivers")
 Learning the aspect of HTTP + HTML parsing + asynchronous Rust.
 
-    [Done] Dependencies: Add reqwest (HTTP) and scraper (HTML parsing) to Cargo.toml.
+    [Done] Dependencies: Add reqwest (HTTP) and readability scraper (HTML parsing) to Cargo.toml.
     [] Async/Await: Convert main to #[tokio::main] and write an async fetcher string.
     [] HTML Parsing: Extract readable text from raw HTML (handling messy tags).
     [] Traits: Implement a Cleanable trait to standardize how we clean text from different sources (PDF vs HTML).
