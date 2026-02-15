@@ -15,8 +15,8 @@ Phase 2: Ingestion & Data Processing (The "Rivers")
 Learning the aspect of HTTP + HTML parsing + asynchronous Rust.
 
     [Done] Dependencies: Add reqwest (HTTP) and readability scraper (HTML parsing) to Cargo.toml.
-    [] Async/Await: Convert main to #[tokio::main] and write an async fetcher string.
-    [] HTML Parsing: Extract readable text from raw HTML (handling messy tags).
+    [Done] Async/Await: Convert main to #[tokio::main] and write an async fetcher string.
+    [Done] HTML Parsing: Extract readable text from raw HTML (handling messy tags).
     [] Traits: Implement a Cleanable trait to standardize how we clean text from different sources (PDF vs HTML).
 
 Phase 3: The HNSW Index (The "Lake")

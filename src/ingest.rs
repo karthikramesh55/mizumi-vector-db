@@ -24,20 +24,21 @@ pub async fn ingest_url(url: &str) -> Result<(), Box<dyn std::error::Error>>
     println!("Fetched {} bytes from the URL. Extracting the text content...", response_text.len());
 
     /*
-    Note: We are parsing the raw HTML using the readability::extractor crate utility to get the primary text content
+    Note: We are parsing the raw HTML using the readability::extractor crate utility to extract the sensible text content
              In this regard, the extractor requires a stream wrapper (i.e. cursor objectual body) + URL objectual body to resolve relative links
-          The cursor that is wrapping the response buffer implements Read + Seek, that is used to read + navigate within the in-memory data.
-             We make the cursor objectual body mutable so its internal position can be updated during read + seek operations.
+          The cursor that is wrapping the response buffer implements Read + Seek trait, that is used to read + navigate the in-memory data.
+             We make the cursor objectual body mutable so that its internal position can be updated during the read + seek operation.
     */
     let mut cursor = std::io::Cursor::new(response_text);
     let url_objectual_body = Url::parse(url)?;
 
     let resultant_product = extractor::extract(&mut cursor, &url_objectual_body)?;
 
-    println!("---------------------------------------------");
+    println!("----------------------------------------------------------");
     println!("Title:       {}", resultant_product.title);
     println!("Content:     {} bytes", resultant_product.text.len());
     println!("Snippet:     {:.300}...", resultant_product.text);
+    println!("----------------------------------------------------------");
 
     Ok(())  // Note: The Ok() describes the successful completion of this flow, and when () is passed as an argument onto Ok(), that describes the unit type for returning of nullity
 }
