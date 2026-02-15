@@ -22,6 +22,6 @@ Mizumi consists of five key components:
 The core database aspect of Mizumi requires searching for the nearest neighbors efficiently
 
 In this regard:
-- HNSW: Hierarchically navigable small world is an algorithmic indexing approach that is explored in order to achieve the mission of fast search.
+- HNSW: The "hierarchichally navigable small world" is an algorithmic indexing approach that is explored in order to achieve the mission of fast search.
 
 

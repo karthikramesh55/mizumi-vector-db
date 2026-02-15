@@ -20,7 +20,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
 
     if args.len() < 2
     {
-        eprintln!("Please follow the usage format: cargo run <action> <target>");
+        eprintln!("Please follow the usage format: cargo run <action> <<target_url>>");
         process::exit(1);
     }
 
@@ -29,7 +29,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
     {
         Some(successfully_validated_action) => successfully_validated_action,
         None => {
-            eprintln!("Invalid action: {}", action_string);
+            eprintln!("An invalid action has been received: {}", action_string);
             process::exit(1);
         }
     };
@@ -39,7 +39,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
         Action::Add => {
             if args.len() < 3
             {
-                eprintln!("Usage: cargo run add <url>");
+                eprintln!("Usage: cargo run add <target_url>");
                 process::exit(1);
             }
             /*
@@ -77,5 +77,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
         }
     }
 
-    Ok(()) // Note: The Ok() describes the successful completion of the matching aspect, when () is passed as an argument, that describes the unit type for nullity
+    Ok(()) // Note: The Ok() describes the successful completion of the matching aspect, and when () is passed as an argument onto (), that describes the unit type for nullity
 }
