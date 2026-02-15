@@ -1,0 +1,50 @@
+Mizumi: A vector database in Rust
+
+Each phase in this plan produces a working piece of the database.
+
+Phase 1: The Foundation & CLI (Current Phase)
+Goal: Get comfortable with Rust syntax, ownership, and project structure.
+
+    [Done] Project Setup: cargo init, Cargo.toml.
+    [Done] Command Line Arguments: Parsing user input (std::env).
+    [] Basic Modules: Creating src/ingest.rs to separate logic from main.rs.
+    [] Error Handling: Replace println! with Result<T, E> and ? operator.
+    [] Structs & Enums: Define a Bookmark struct (URL, title, content) and an Action enum (Add, Search, List).
+
+Phase 2: Ingestion & Data Processing (The "Rivers")
+Goal: Learn about HTTP, HTML parsing, and asynchronous Rust.
+
+    [] Dependencies: Add reqwest (HTTP) and scraper (HTML parsing) to Cargo.toml.
+    [] Async/Await: Convert main to #[tokio::main] and write an async fetcher string.
+    [] HTML Parsing: Extract readable text from raw HTML (handling messy tags).
+    [] Traits: Implement a Cleanable trait to standardize how we clean text from different sources (PDF vs HTML).
+
+Phase 3: The HNSW Index (The "Lake" - Core Challenge)
+Goal: Deep dive into algorithms, memory layout, and distance math. This is the hardest but most rewarding part.
+
+    [] Vector Math: Create a Vector type (wrapper around Vec<f32>). Implement cosine_similarity and euclidean_distance.
+    [] The Node Struct: Create a Node struct for the graph (holds vector + links to neighbors).
+    [] Layered Graph: Implement the "Hierarchical" structure (layers of linked lists).
+    [] Greedy Search: implement search_layer (finding the closest node in a single graph layer).
+    [] Insertion Logic: The complex part—finding the right spot for a new node and updating neighbor links across layers.
+    [] Concurrency (Bonus): Use RwLock or Mutex to make the index thread-safe for simultaneous reads/writes.
+
+Phase 4: Embeddings (The "Transformation")
+Goal: Connect the text to the math.
+
+    [] Model Integration: Use candle-core (Hugging Face Rust port) to load a small model like all-MiniLM-L6-v2.
+    [] Tokenization: Turn text into tokens, then into embeddings.
+    [] Batching: Process multiple bookmarks at once to speed up ingestion.
+
+Phase 5: Storage & Persistence (The "Bedrock")
+Goal: Save the graph to disk so we don't lose data on restart.
+
+    [] Serialization: Use serde and bincode to convert our HNSW graph structure into bytes.
+    [] File I/O: Write the bytes to a file (mizumi.db) and read them back on startup.
+    [] Memory Mapping (Optional): Use memmap2 for loading large indexes without consuming all RAM.
+
+Phase 6: The User Interface (The "Shore")
+Goal: Make it usable.
+
+    [] Search CLI: mizumi search "optimizing rust code".
+    [] TUI (Terminal UI): Use ratatui to show search results in a nice interactive list.
